@@ -1,12 +1,18 @@
 import datetime
 import requests
+import urllib.request
 from bs4 import BeautifulSoup
 
-def scrape_number_1(url):
+def scrape_number_1(url, year):
     source = requests.get(url).text
     source_soup = BeautifulSoup(source, "html.parser")
     song_name = source_soup.find("h2", {"class": "chart-row__song"})
     song_artist = source_soup.find("a", {"class": "chart-row__artist"})
+
+    image_file_name = str(year) + ".jpg"
+    image_link = source_soup.find("div", {"class": "chart-row__image"}).get("style")
+    urllib.request.urlretrieve(image_link[22:len(image_link)-1], image_file_name)
+
     return song_name.string+" - "+song_artist.string.strip()
 
 def today_date_adjuster(date):
@@ -48,7 +54,7 @@ for i in range(0,11):
         day_counter += 1
     closest_saturday = today_date_adjuster(datetime.datetime.today() - datetime.timedelta(days=day_counter))
     # date[i] = (datetime.datetime.today() - datetime.timedelta(days=day_counter)).year
-    song_info[i] = scrape_number_1("http://www.billboard.com/charts/r-b-hip-hop-songs/" + closest_saturday)
+    song_info[i] = scrape_number_1("http://www.billboard.com/charts/r-b-hip-hop-songs/" + closest_saturday, int(closest_saturday[:4]))
     day_counter += 365
 
 write_to_html(song_info)
