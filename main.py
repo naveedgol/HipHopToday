@@ -9,7 +9,7 @@ def scrape_number_1(url, year):
     song_name = source_soup.find("h2", {"class": "chart-row__song"})
     song_artist = source_soup.find("a", {"class": "chart-row__artist"})
 
-    image_file_name = str(year) + ".jpg"
+    image_file_name = "Assets/Images/" + str(year) + ".jpg"
     image_link = source_soup.find("div", {"class": "chart-row__image"}).get("style")
     urllib.request.urlretrieve(image_link[22:len(image_link)-1], image_file_name)
 
@@ -38,8 +38,9 @@ def write_to_html(info):
     html_file = open('index.html', "r+")
     html_doc_soup = BeautifulSoup(html_file, "html.parser")
     counter = 0
+    year = 2017
     for i in html_doc_soup.findAll("p"):
-        i.string += info[counter]
+        i.string = str(year-counter) + ": " + info[counter]
         counter += 1
     html_file.close()
     html_output = html_doc_soup.prettify("utf-8")
