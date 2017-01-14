@@ -45,7 +45,7 @@ def write_to_html(info):
         i.string = str(year-counter) + ": " + info[counter]
         counter += 1
 
-    date = html_doc_soup.find("h2")
+    date = html_doc_soup.find("h2", {"class": "date"})
     months = ["zero", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     date.string = months[datetime.datetime.today().month] + " " + str(datetime.datetime.today().day) + ", " + str(datetime.datetime.today().year)
 
