@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import datetime
 import requests
 import urllib.request
@@ -42,6 +44,11 @@ def write_to_html(info):
     for i in html_doc_soup.findAll("p"):
         i.string = str(year-counter) + ": " + info[counter]
         counter += 1
+
+    date = html_doc_soup.find("h2")
+    months = ["zero", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    date.string = months[datetime.datetime.today().month] + " " + str(datetime.datetime.today().day) + ", " + str(datetime.datetime.today().year)
+
     html_file.close()
     html_output = html_doc_soup.prettify("utf-8")
     with open("index.html", "wb") as file:
@@ -49,11 +56,12 @@ def write_to_html(info):
 
 day_counter = 0
 # date = [""]*11
-song_info = [""]*11
-for i in range(0,11):
+song_info = [""]*10
+for i in range(0,10):
     if i == 1 or i == 5 or i == 9:
         day_counter += 1
     closest_saturday = today_date_adjuster(datetime.datetime.today() - datetime.timedelta(days=day_counter))
+    # print(closest_saturday)
     # date[i] = (datetime.datetime.today() - datetime.timedelta(days=day_counter)).year
     song_info[i] = scrape_number_1("http://www.billboard.com/charts/r-b-hip-hop-songs/" + closest_saturday, int(closest_saturday[:4]))
     day_counter += 365

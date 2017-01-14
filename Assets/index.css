@@ -19,14 +19,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 body
 {
-	background-color: black;
+	/*background-color: black;*/
+	background-image: url('Images/background.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 p
 {
 	font-family: Gotham;
 	display: inline-block;
-	padding-top: 195px;
+	padding-top: 205px;
 	vertical-align: text-top;
 }
 
@@ -36,10 +40,10 @@ p
 	border-radius: 25px;
 	margin-top: 70px;
 	margin-bottom: 10px;
-	margin-left: 2vw;
-	margin-right: 2vw;
-	height: 180px;
-	width: 180px;
+	margin-left: 3vw;
+	margin-right: 3vw;
+	height: 190px;
+	width: 190px;
 	background-size: cover;
 	background-position: top center;
 	background-repeat: no-repeat;
@@ -49,7 +53,13 @@ p
 {
 	text-align: center;
 	font-family: Gotham;
-	margin-top: 15vh;
+	font-size: 400%;
+}
+
+.subheading
+{
+	font-family: Gotham;
+	margin-top: 13vh;
 	font-size: 400%;
 }
 
