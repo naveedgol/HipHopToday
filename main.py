@@ -1,10 +1,9 @@
-#!/usr/bin/env python
-
 import datetime
 import requests
 import urllib.request
 from bs4 import BeautifulSoup
 
+#download artist image, scrape artist and song name
 def scrape_number_1(url, year):
     source = requests.get(url).text
     source_soup = BeautifulSoup(source, "html.parser")
@@ -17,6 +16,7 @@ def scrape_number_1(url, year):
 
     return song_name.string+" - "+song_artist.string.strip()
 
+#billboard date links only support saturdays, adjust for that
 def today_date_adjuster(date):
     days_away_from_saturday = 5-date.weekday()
     if days_away_from_saturday >= 0:
@@ -25,6 +25,7 @@ def today_date_adjuster(date):
         date += datetime.timedelta(days=6)
     return date_formatter(date)
 
+#format date for billboard url convention of yyyy-mm-dd
 def date_formatter(date):
     year = str(date.year)
     month = str(date.month)
@@ -36,6 +37,7 @@ def date_formatter(date):
     formatted_date = year + "-" + month + "-" + day
     return formatted_date
 
+#export date, artist, song to html
 def write_to_html(info):
     html_file = open('index.html', "r+")
     html_doc_soup = BeautifulSoup(html_file, "html.parser")
@@ -57,7 +59,6 @@ def write_to_html(info):
 
 def scrape_decade():
     day_counter = 0
-    # date = [""]*11
     song_info = [""] * 10
     for i in range(0, 10):
         if i == 1 or i == 5 or i == 9:
