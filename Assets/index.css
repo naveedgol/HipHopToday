@@ -54,14 +54,14 @@ p
 {
 	text-align: center;
 	font-family: Gotham;
-	font-size: 400%;
+	font-size: calc(150% + 2.5vw);
 }
 
 .subheading
 {
 	font-family: Gotham;
 	margin-top: 13vh;
-	font-size: 400%;
+	font-size: calc(150% + 2.5vw);
 }
 
 .icon img
