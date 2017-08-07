@@ -12,8 +12,10 @@ def scrape_number_1(url, year):
 
     image_file_name = "Assets/Images/{year}.jpg".format(year=str(year))
     image_link = source_soup.find("div", {"class": "chart-row__image"}).get("style")
-    urllib.request.urlretrieve(image_link[22:len(image_link)-1], image_file_name)
-
+    if image_link :
+        urllib.request.urlretrieve(image_link[22:len(image_link)-1], image_file_name)
+    else:
+        urllib.request.urlretrieve("http://www.billboard.com/static/frontend/2017_08_03_1329/assets/images/chart-row-placeholder.jpg", image_file_name)
     return song_name.string+" - "+song_artist.string.strip()
 
 #billboard date links only support saturdays, adjust for that
