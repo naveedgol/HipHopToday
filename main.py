@@ -8,7 +8,7 @@ def scrape_number_1(url, year):
     source = requests.get(url).text
     source_soup = BeautifulSoup(source, "html.parser")
     song_name = source_soup.find("h2", {"class": "chart-row__song"})
-    song_artist = source_soup.find("a", {"class": "chart-row__artist"})
+    song_artist = source_soup.find("span", {"class": "chart-row__artist"})
 
     image_file_name = "Assets/Images/{year}.jpg".format(year=str(year))
     image_link = source_soup.find("div", {"class": "chart-row__image"}).get("style")
